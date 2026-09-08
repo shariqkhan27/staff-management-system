@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import { Calculator, Save, FileText, Check, FileDown, Eye, Download } from "lucide-react";
 import Link from "next/link";
 import { exportToCSV } from "@/lib/csv-export";
+import { useGlobalSettings } from "@/components/global-settings-provider";
 
 interface PayrollPreview {
   employeeId: string;
@@ -35,12 +36,20 @@ interface PayrollPreview {
 
 export default function AdminPayroll() {
   const { toast } = useToast();
+  const { settings } = useGlobalSettings();
   
   // Settings state
   const [month, setMonth] = useState<number | "">(new Date().getMonth() + 1);
   const [year, setYear] = useState<number | "">(new Date().getFullYear());
   const [daysInMonth, setDaysInMonth] = useState<number | "">(30);
-  const [overtimeRate, setOvertimeRate] = useState<number | "">(0);
+  const [overtimeRate, setOvertimeRate] = useState<number | "">(settings.defaultOvertimeRate || 0);
+  
+  // Sync overtime rate when settings load
+  useEffect(() => {
+    if (settings.defaultOvertimeRate) {
+      setOvertimeRate(settings.defaultOvertimeRate);
+    }
+  }, [settings.defaultOvertimeRate]);
   
   const [previewData, setPreviewData] = useState<PayrollPreview[]>([]);
   const [pastRecords, setPastRecords] = useState<any[]>([]);
