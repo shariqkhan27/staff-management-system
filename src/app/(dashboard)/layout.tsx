@@ -87,7 +87,7 @@ export default function DashboardLayout({
         {/* Sidebar - hidden on mobile, shown on desktop */}
         <div
           className={cn(
-            "fixed left-0 top-0 z-50 h-screen transition-transform duration-300 lg:transition-all lg:duration-300",
+            "fixed inset-y-0 left-0 z-50 transition-transform duration-300 lg:transition-all lg:duration-300",
             // Mobile: slide in/out
             mobileOpen ? "translate-x-0" : "-translate-x-full",
             // Desktop: always visible
