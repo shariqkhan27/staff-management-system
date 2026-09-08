@@ -1,0 +1,84 @@
+{
+  "leaves": [
+    {
+      "id": "cmtr3ec1b0003w82gdfvk3e7d",
+      "employeeId": "cmtpsbtfx0002w86oas2brlyb",
+      "totalDays": 6,
+      "paidDays": 6,
+      "unpaidDays": 0,
+      "status": "REJECTED",
+      "fromDate": "2026-09-07T00:00:00.000Z"
+    },
+    {
+      "id": "cmtr3d9zn0001w82gl29n04tz",
+      "employeeId": "cmtpsbtfx0002w86oas2brlyb",
+      "totalDays": 4,
+      "paidDays": 4,
+      "unpaidDays": 0,
+      "status": "REJECTED",
+      "fromDate": "2026-09-07T00:00:00.000Z"
+    },
+    {
+      "id": "cmtr3t5c20009w82g3vnhmsms",
+      "employeeId": "cmtpsbtfx0002w86oas2brlyb",
+      "totalDays": 1,
+      "paidDays": 0,
+      "unpaidDays": 1,
+      "status": "APPROVED",
+      "fromDate": "2026-09-07T00:00:00.000Z"
+    },
+    {
+      "id": "cmtr3qeel0005w82grx6x4vew",
+      "employeeId": "cmtpsbtfx0002w86oas2brlyb",
+      "totalDays": 2,
+      "paidDays": 1,
+      "unpaidDays": 1,
+      "status": "APPROVED",
+      "fromDate": "2026-09-07T00:00:00.000Z"
+    }
+  ],
+  "balances": [
+    {
+      "id": "cmtr3s52l0007w82gidjhmgdo",
+      "employeeId": "cmtpsbtfx0002w86oas2brlyb",
+      "leaveTypeId": "cmtpmri0v000hw85c1xh88kuy",
+      "allocated": 10,
+      "used": 1,
+      "year": 2026
+    }
+  ],
+  "types": [
+    {
+      "id": "cmtpmri0v000kw85cmz2961ni",
+      "name": "Unpaid Leave",
+      "maxDaysPerYear": 30,
+      "maxDaysPerMonth": null,
+      "isPaid": false,
+      "createdAt": "2026-09-06T09:49:46.880Z"
+    },
+    {
+      "id": "cmtpmri0v000jw85c1x0w4a36",
+      "name": "Annual Leave",
+      "maxDaysPerYear": 15,
+      "maxDaysPerMonth": null,
+      "isPaid": true,
+      "createdAt": "2026-09-06T09:49:46.879Z"
+    },
+    {
+      "id": "cmtpmri0v000iw85c6mg7p1lq",
+      "name": "Casual Leave",
+      "maxDaysPerYear": 15,
+      "maxDaysPerMonth": null,
+      "isPaid": true,
+      "createdAt": "2026-09-06T09:49:46.879Z"
+    },
+    {
+      "id": "cmtpmri0v000hw85c1xh88kuy",
+      "name": "Sick Leave",
+      "maxDaysPerYear": 10,
+      "maxDaysPerMonth": 2,
+      "isPaid": true,
+      "createdAt": "2026-09-06T09:49:46.879Z"
+    }
+  ]
+}

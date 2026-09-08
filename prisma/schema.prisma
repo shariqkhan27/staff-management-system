@@ -1,0 +1,452 @@
+// Prisma Schema for Elegence Architectures - Staff & HR Management System
+// All modules included: Employees, Attendance, Leaves, Payroll, Finance
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ============================================================
+// ENUMS
+// ============================================================
+
+enum UserRole {
+  OWNER
+  HR_MANAGER
+  FINANCE_MANAGER
+  EMPLOYEE
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+}
+
+enum EmploymentStatus {
+  ACTIVE
+  ON_LEAVE
+  TERMINATED
+  RESIGNED
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  HALF_DAY
+  LATE
+}
+
+enum LeaveRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum SalaryStatus {
+  DRAFT
+  PROCESSED
+  PAID
+}
+
+enum AdvanceStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  DEDUCTED
+}
+
+enum PaymentMethod {
+  CASH
+  BANK_TRANSFER
+  CHEQUE
+  ONLINE
+}
+
+// ============================================================
+// AUTHENTICATION
+// ============================================================
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String   @map("password_hash")
+  role          UserRole @default(EMPLOYEE)
+  isActive      Boolean  @default(true) @map("is_active")
+  resetToken    String?  @map("reset_token")
+  resetTokenExpiry DateTime? @map("reset_token_expiry")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  employee      Employee?
+
+  // Relations for actions performed by this user
+  attendanceEdits  AttendanceLog[]  @relation("EditedBy")
+  leaveReviews     LeaveRequest[]   @relation("ReviewedBy")
+  advanceApprovals SalaryAdvance[]  @relation("ApprovedBy")
+  expensesAdded    Expense[]        @relation("AddedBy")
+  salariesProcessed SalaryRecord[] @relation("ProcessedBy")
+  notifications    Notification[]
+
+  @@map("users")
+}
+
+// ============================================================
+// MODULE 1: EMPLOYEE & STAFF MANAGEMENT
+// ============================================================
+
+model Employee {
+  id              String           @id @default(cuid())
+  employeeId      String           @unique @map("employee_id") // EMP-001
+  name            String
+  cnic            String?
+  phone           String?
+  email           String?
+  photoUrl        String?          @map("photo_url")
+  address         String?
+  dateOfBirth     DateTime?        @map("date_of_birth")
+  joiningDate     DateTime         @map("joining_date")
+  designation     String?
+  departmentId    String?          @map("department_id")
+  employmentType  EmploymentType   @default(FULL_TIME) @map("employment_type")
+  basicSalary     Decimal          @default(0) @map("basic_salary") @db.Decimal(12, 2)
+  bankAccountTitle String?         @map("bank_account_title")
+  bankAccountNo   String?          @map("bank_account_no")
+  bankName        String?          @map("bank_name")
+  bankBranch      String?          @map("bank_branch")
+  status          EmploymentStatus @default(ACTIVE)
+  userId          String?          @unique @map("user_id")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+
+  // Relations
+  user            User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  department      Department?      @relation("DepartmentEmployees", fields: [departmentId], references: [id], onDelete: SetNull)
+  headOfDepartment Department?     @relation("DepartmentHead")
+  documents       Document[]
+  attendanceLogs  AttendanceLog[]
+  leaveBalances   LeaveBalance[]
+  leaveRequests   LeaveRequest[]
+  salaryRecords   SalaryRecord[]
+  salaryAdvances  SalaryAdvance[]
+  salaryComponents SalaryComponent[]
+
+  @@map("employees")
+}
+
+model Department {
+  id              String     @id @default(cuid())
+  name            String     @unique
+  headEmployeeId  String?    @unique @map("head_employee_id")
+  createdAt       DateTime   @default(now()) @map("created_at")
+  updatedAt       DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  headEmployee    Employee?  @relation("DepartmentHead", fields: [headEmployeeId], references: [id], onDelete: SetNull)
+  employees       Employee[] @relation("DepartmentEmployees")
+
+  @@map("departments")
+}
+
+model Document {
+  id          String   @id @default(cuid())
+  employeeId  String   @map("employee_id")
+  type        String   // contract, cnic_copy, certificate, etc.
+  fileName    String   @map("file_name")
+  fileUrl     String   @map("file_url")
+  uploadedAt  DateTime @default(now()) @map("uploaded_at")
+
+  employee    Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@map("documents")
+}
+
+// ============================================================
+// MODULE 2: ATTENDANCE & LEAVES
+// ============================================================
+
+model AttendanceLog {
+  id            String           @id @default(cuid())
+  employeeId    String           @map("employee_id")
+  date          DateTime         @db.Date
+  status        AttendanceStatus
+  checkIn       DateTime?        @map("check_in")
+  checkOut      DateTime?        @map("check_out")
+  overtimeHours Decimal          @default(0) @map("overtime_hours") @db.Decimal(5, 2)
+  editedById    String?          @map("edited_by")
+  editReason    String?          @map("edit_reason")
+  createdAt     DateTime         @default(now()) @map("created_at")
+  updatedAt     DateTime         @updatedAt @map("updated_at")
+
+  employee      Employee         @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  editedBy      User?            @relation("EditedBy", fields: [editedById], references: [id], onDelete: SetNull)
+
+  @@unique([employeeId, date])
+  @@index([date])
+  @@index([employeeId])
+  @@map("attendance_logs")
+}
+
+model LeaveType {
+  id              String         @id @default(cuid())
+  name            String         @unique
+  maxDaysPerYear  Int            @map("max_days_per_year")
+  maxDaysPerMonth Int?           @map("max_days_per_month")
+  isPaid          Boolean        @default(true) @map("is_paid")
+  createdAt       DateTime       @default(now()) @map("created_at")
+
+  leaveBalances   LeaveBalance[]
+  leaveRequests   LeaveRequest[]
+
+  @@map("leave_types")
+}
+
+model LeaveBalance {
+  id          String   @id @default(cuid())
+  employeeId  String   @map("employee_id")
+  leaveTypeId String   @map("leave_type_id")
+  allocated   Int      @default(0)
+  used        Int      @default(0)
+  year        Int
+
+  employee    Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  leaveType   LeaveType @relation(fields: [leaveTypeId], references: [id], onDelete: Cascade)
+
+  @@unique([employeeId, leaveTypeId, year])
+  @@map("leave_balances")
+}
+
+model LeaveRequest {
+  id            String             @id @default(cuid())
+  employeeId    String             @map("employee_id")
+  leaveTypeId   String             @map("leave_type_id")
+  fromDate      DateTime           @map("from_date") @db.Date
+  toDate        DateTime           @map("to_date") @db.Date
+  totalDays     Int                @map("total_days")
+  paidDays      Int                @default(0) @map("paid_days")
+  unpaidDays    Int                @default(0) @map("unpaid_days")
+  reason        String?
+  status        LeaveRequestStatus @default(PENDING)
+  reviewedById  String?            @map("reviewed_by")
+  reviewComment String?            @map("review_comment")
+  createdAt     DateTime           @default(now()) @map("created_at")
+  updatedAt     DateTime           @updatedAt @map("updated_at")
+
+  employee      Employee           @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  leaveType     LeaveType          @relation(fields: [leaveTypeId], references: [id], onDelete: Cascade)
+  reviewedBy    User?              @relation("ReviewedBy", fields: [reviewedById], references: [id], onDelete: SetNull)
+
+  @@map("leave_requests")
+}
+
+// ============================================================
+// MODULE 3: PAYROLL & SALARIES
+// ============================================================
+
+model SalaryRecord {
+  id                String       @id @default(cuid())
+  employeeId        String       @map("employee_id")
+  month             Int
+  year              Int
+  workingDays       Int          @map("working_days")
+  presentDays       Int          @map("present_days")
+  basicSalary       Decimal      @map("basic_salary") @db.Decimal(12, 2)
+  absentDeduction   Decimal      @default(0) @map("absent_deduction") @db.Decimal(12, 2)
+  overtimePay       Decimal      @default(0) @map("overtime_pay") @db.Decimal(12, 2)
+  bonus             Decimal      @default(0) @db.Decimal(12, 2)
+  allowances        Decimal      @default(0) @db.Decimal(12, 2)
+  advanceDeduction  Decimal      @default(0) @map("advance_deduction") @db.Decimal(12, 2)
+  taxDeduction      Decimal      @default(0) @map("tax_deduction") @db.Decimal(12, 2)
+  otherDeductions   Decimal      @default(0) @map("other_deductions") @db.Decimal(12, 2)
+  netSalary         Decimal      @default(0) @map("net_salary") @db.Decimal(12, 2)
+  status            SalaryStatus @default(DRAFT)
+  processedById     String?      @map("processed_by")
+  processedAt       DateTime?    @map("processed_at")
+  paidAt            DateTime?    @map("paid_at")
+  createdAt         DateTime     @default(now()) @map("created_at")
+  updatedAt         DateTime     @updatedAt @map("updated_at")
+
+  employee          Employee     @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+  processedBy       User?        @relation("ProcessedBy", fields: [processedById], references: [id], onDelete: SetNull)
+
+  @@unique([employeeId, month, year])
+  @@index([month, year])
+  @@map("salary_records")
+}
+
+model SalaryAdvance {
+  id              String        @id @default(cuid())
+  employeeId      String        @map("employee_id")
+  amount          Decimal       @db.Decimal(12, 2)
+  requestDate     DateTime      @default(now()) @map("request_date")
+  reason          String?
+  approvedById    String?       @map("approved_by")
+  status          AdvanceStatus @default(PENDING)
+  deductionMonth  Int?          @map("deduction_month")
+  deductionYear   Int?          @map("deduction_year")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  employee        Employee      @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+  approvedBy      User?         @relation("ApprovedBy", fields: [approvedById], references: [id], onDelete: SetNull)
+
+  @@map("salary_advances")
+}
+
+model SalaryComponent {
+  id          String   @id @default(cuid())
+  employeeId  String   @map("employee_id")
+  month       Int
+  year        Int
+  type        String   // bonus, allowance, deduction
+  amount      Decimal  @db.Decimal(12, 2)
+  description String?
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  employee    Employee @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+
+  @@map("salary_components")
+}
+
+// ============================================================
+// MODULE 4: FINANCE & EXPENSES
+// ============================================================
+
+model IncomeRecord {
+  id              String        @id @default(cuid())
+  source          String
+  clientName      String?       @map("client_name")
+  amount          Decimal       @db.Decimal(14, 2)
+  date            DateTime      @db.Date
+  paymentMethod   PaymentMethod @default(CASH) @map("payment_method")
+  notes           String?
+  tenderReference String?       @map("tender_reference")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  @@index([date])
+  @@map("income_records")
+}
+
+model ExpenseCategory {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  expenses  Expense[]
+  budgets   Budget[]
+
+  @@map("expense_categories")
+}
+
+model Expense {
+  id          String          @id @default(cuid())
+  categoryId  String          @map("category_id")
+  amount      Decimal         @db.Decimal(14, 2)
+  date        DateTime        @db.Date
+  description String?
+  receiptUrl  String?         @map("receipt_url")
+  addedById   String?         @map("added_by")
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+
+  category    ExpenseCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  addedBy     User?           @relation("AddedBy", fields: [addedById], references: [id], onDelete: SetNull)
+
+  @@index([date])
+  @@map("expenses")
+}
+
+model PettyCashLog {
+  id          String   @id @default(cuid())
+  date        DateTime @db.Date
+  description String
+  credit      Decimal  @default(0) @db.Decimal(12, 2)
+  debit       Decimal  @default(0) @db.Decimal(12, 2)
+  balance     Decimal  @default(0) @db.Decimal(12, 2)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("petty_cash_logs")
+}
+
+model Budget {
+  id             String          @id @default(cuid())
+  categoryId     String          @map("category_id")
+  month          Int
+  year           Int
+  budgetedAmount Decimal         @map("budgeted_amount") @db.Decimal(14, 2)
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
+
+  category       ExpenseCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([categoryId, month, year])
+  @@map("budgets")
+}
+
+model Vendor {
+  id                String        @id @default(cuid())
+  name              String
+  contact           String?
+  email             String?
+  address           String?
+  paymentType       PaymentMethod @default(CASH) @map("payment_type")
+  outstandingAmount Decimal       @default(0) @map("outstanding_amount") @db.Decimal(14, 2)
+  createdAt         DateTime      @default(now()) @map("created_at")
+  updatedAt         DateTime      @updatedAt @map("updated_at")
+
+  @@map("vendors")
+}
+
+// ============================================================
+// AUDIT LOG
+// ============================================================
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  userId      String?  @map("user_id")
+  action      String   // CREATE, UPDATE, DELETE
+  entity      String   // employee, attendance, etc.
+  entityId    String   @map("entity_id")
+  changes     Json?    // JSON of changes made
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("audit_logs")
+}
+
+// ============================================================
+// NOTIFICATIONS (for Admin alerts)
+// ============================================================
+
+model Notification {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")     // Target user (admin/owner)
+  type        String   // ATTENDANCE_EDIT, etc.
+  title       String
+  message     String
+  isRead      Boolean  @default(false) @map("is_read")
+  metadata    Json?    // extra data (employeeId, date, etc.)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+// ============================================================
+// SYSTEM SETTINGS
+// ============================================================
+
+model GlobalSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("global_settings")
+}

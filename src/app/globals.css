@@ -1,0 +1,243 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #09090b;
+  --color-foreground: #fafafa;
+  --color-card: #0a0a0f;
+  --color-card-foreground: #fafafa;
+  --color-popover: #0a0a0f;
+  --color-popover-foreground: #fafafa;
+  --color-primary: #6d5acd;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #1a1a2e;
+  --color-secondary-foreground: #fafafa;
+  --color-muted: #18181b;
+  --color-muted-foreground: #a1a1aa;
+  --color-accent: #6d5acd;
+  --color-accent-foreground: #fafafa;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #fafafa;
+  --color-border: #27272a;
+  --color-input: #27272a;
+  --color-ring: #6d5acd;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
+
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
+  --radius-sm: 0.25rem;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #27272a;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3f3f46;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(109, 90, 205, 0.15);
+  }
+
+  .gradient-border {
+    border: 1px solid transparent;
+    background-image: linear-gradient(#0a0a0f, #0a0a0f),
+      linear-gradient(135deg, #6d5acd, #4338ca, #6d5acd);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .stat-card {
+    background: linear-gradient(135deg, rgba(109, 90, 205, 0.1), rgba(10, 10, 15, 0.9));
+    border: 1px solid rgba(109, 90, 205, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover {
+    border-color: rgba(109, 90, 205, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(109, 90, 205, 0.15);
+  }
+
+  .sidebar-link {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200;
+    color: #a1a1aa;
+  }
+
+  .sidebar-link:hover {
+    background: rgba(109, 90, 205, 0.1);
+    color: #fafafa;
+  }
+
+  .sidebar-link.active {
+    background: rgba(109, 90, 205, 0.2);
+    color: #6d5acd;
+    border-left: 3px solid #6d5acd;
+  }
+
+  .table-row-hover {
+    transition: background-color 0.15s ease;
+  }
+
+  .table-row-hover:hover {
+    background: rgba(109, 90, 205, 0.05);
+  }
+
+  .pulse-dot {
+    animation: pulse-animation 2s infinite;
+  }
+
+  @keyframes pulse-animation {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+}
+
+/* Toast styles */
+.toast-success {
+  background: linear-gradient(135deg, #065f46, #064e3b) !important;
+  border: 1px solid #059669 !important;
+}
+
+.toast-error {
+  background: linear-gradient(135deg, #7f1d1d, #991b1b) !important;
+  border: 1px solid #dc2626 !important;
+}
+
+/* ============================
+   MOBILE RESPONSIVE UTILITIES
+   ============================ */
+
+/* Touch-friendly tap targets */
+@media (max-width: 640px) {
+  button,
+  a,
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Smaller buttons inside tables keep their size */
+  table button,
+  table a {
+    min-height: 36px;
+    min-width: 36px;
+  }
+}
+
+/* Responsive table wrapper - horizontal scroll on mobile */
+@layer components {
+  .table-responsive {
+    @apply overflow-x-auto -mx-3 px-3;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Mobile dialog sizing */
+@media (max-width: 640px) {
+  [role="dialog"] > div {
+    max-width: calc(100vw - 1rem) !important;
+    max-height: calc(100vh - 2rem) !important;
+    margin: 0.5rem !important;
+    overflow-y: auto;
+  }
+}
+
+/* Grid responsive overrides for stat cards */
+@media (max-width: 640px) {
+  .grid-cols-2,
+  .grid-cols-3,
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .grid-cols-2,
+  .grid-cols-3,
+  .grid-cols-4 {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Safe area for notched phones (iPhone X+) */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .min-h-screen {
+    min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Prevent text selection on interactive elements for mobile */
+@media (pointer: coarse) {
+  button, a, [role="button"], .sidebar-link {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+}
+
+/* Mobile-friendly form inputs */
+@media (max-width: 640px) {
+  input, select, textarea {
+    font-size: 16px !important; /* Prevent zoom on iOS */
+  }
+}
+
+/* Hide scrollbar for tabs and horizontal lists */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
