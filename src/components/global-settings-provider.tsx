@@ -12,7 +12,7 @@ interface GlobalSettings {
 }
 
 const defaultSettings: GlobalSettings = {
-  companyName: "Elegence Architectures",
+  companyName: "Elegence Spaces",
   currency: "PKR",
   timezone: "Asia/Karachi",
   defaultOvertimeRate: "500",

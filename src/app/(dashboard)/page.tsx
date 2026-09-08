@@ -363,7 +363,7 @@ function AdminDashboard({ userRole, userName }: { userRole: string; userName: st
       <div className="glass-card rounded-xl p-4 sm:p-6">
         <h2 className="text-lg sm:text-xl font-semibold break-words">Welcome back, {userName}! 👋</h2>
         <p className="text-sm sm:text-base text-muted-foreground mt-1">
-          {isOwner ? "Here's the full overview of Elegence Architectures today." : "Here's today's attendance and leave overview for your team."}
+          {isOwner ? "Here's the full overview of Elegence Spaces today." : "Here's today's attendance and leave overview for your team."}
         </p>
       </div>
 

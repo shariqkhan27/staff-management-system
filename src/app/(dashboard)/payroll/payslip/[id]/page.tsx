@@ -57,5 +57,5 @@ export default async function PayslipPage({ params }: { params: Promise<{ id: st
     }
   };
 
-  return <PayslipClient record={serializedRecord} companyName="Elegence Architectures" />;
+  return <PayslipClient record={serializedRecord} companyName="Elegence Spaces" />;
 }

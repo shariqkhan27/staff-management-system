@@ -7,10 +7,10 @@ import { GlobalSettingsProvider } from "@/components/global-settings-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Elegence Architectures — Staff Management",
+  title: "Elegence Spaces — Staff Management",
   description:
-    "Complete HR & Staff Management System for Elegence Architectures. Manage employees, attendance, payroll, and finances.",
-  keywords: "HR, staff management, payroll, attendance, Elegence Architectures",
+    "Complete HR & Staff Management System for Elegence Spaces. Manage employees, attendance, payroll, and finances.",
+  keywords: "HR, staff management, payroll, attendance, Elegence Spaces",
 };
 
 export const viewport = {

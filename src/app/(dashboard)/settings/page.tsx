@@ -112,7 +112,7 @@ export default function SettingsPage() {
 
   // Global settings
   const [globalSettings, setGlobalSettings] = useState<Record<string, string>>({
-    companyName: "Elegence Architectures",
+    companyName: "Elegence Spaces",
     currency: "PKR",
     timezone: "Asia/Karachi",
     defaultOvertimeRate: "500",
@@ -696,7 +696,7 @@ export default function SettingsPage() {
                       <Input
                         value={globalSettings.companyName || ""}
                         onChange={(e) => setGlobalSettings({ ...globalSettings, companyName: e.target.value })}
-                        placeholder="e.g. Elegence Architectures"
+                        placeholder="e.g. Elegence Spaces"
                       />
                     </div>
                     <div className="space-y-2">
@@ -796,7 +796,7 @@ export default function SettingsPage() {
                 <CardContent className="pt-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-8">
                     {[
-                      { icon: Building2, label: "Company", value: process.env.NEXT_PUBLIC_APP_NAME || "Elegence Architectures" },
+                      { icon: Building2, label: "Company", value: process.env.NEXT_PUBLIC_APP_NAME || "Elegence Spaces" },
                       { icon: Globe, label: "Timezone", value: process.env.NEXT_PUBLIC_TIMEZONE || "Asia/Karachi" },
                       { icon: Banknote, label: "Currency", value: process.env.NEXT_PUBLIC_CURRENCY || "PKR" },
                       { icon: Clock, label: "Account Created", value: new Date(data.user.createdAt).toLocaleDateString("en-PK", { year: "numeric", month: "long", day: "numeric" }) },

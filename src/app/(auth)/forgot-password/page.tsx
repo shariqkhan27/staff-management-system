@@ -56,7 +56,7 @@ export default function ForgotPasswordPage() {
           <div className="h-16 w-16 rounded-2xl bg-primary/20 flex items-center justify-center mb-4 shadow-lg shadow-primary/10">
             <Building2 className="h-8 w-8 text-primary" />
           </div>
-          <h1 className="text-2xl font-bold text-foreground">Elegence Architectures</h1>
+          <h1 className="text-2xl font-bold text-foreground">Elegence Spaces</h1>
         </div>
 
         <Card className="glass-card border-border/50">

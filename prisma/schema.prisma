@@ -1,4 +1,4 @@
-// Prisma Schema for Elegence Architectures - Staff & HR Management System
+// Prisma Schema for Elegence Spaces - Staff & HR Management System
 // All modules included: Employees, Attendance, Leaves, Payroll, Finance
 
 generator client {
