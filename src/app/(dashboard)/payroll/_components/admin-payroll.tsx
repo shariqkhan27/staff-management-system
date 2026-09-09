@@ -238,7 +238,7 @@ export default function AdminPayroll() {
                             <td className="p-2 align-middle">
                               <Input 
                                 type="number" 
-                                className="w-full min-w-[80px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-muted/30 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
+                                className="w-full min-w-[80px] h-8 text-xs text-right bg-background border border-input rounded shadow-sm hover:border-primary/50 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                                 value={row.basicSalary} 
                                 onChange={(e) => handleFieldChange(row.employeeId, "basicSalary", e.target.value)} 
                               />
@@ -246,7 +246,7 @@ export default function AdminPayroll() {
                             <td className="p-2 align-middle">
                               <Input 
                                 type="number" 
-                                className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-muted/30 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-emerald-600 dark:text-emerald-400 font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
+                                className="w-full min-w-[70px] h-8 text-xs text-right bg-background border border-input rounded shadow-sm hover:border-primary/50 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-emerald-600 dark:text-emerald-400 font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                                 value={row.overtimePay} 
                                 onChange={(e) => handleFieldChange(row.employeeId, "overtimePay", e.target.value)} 
                               />
@@ -254,7 +254,7 @@ export default function AdminPayroll() {
                             <td className="p-2 align-middle">
                               <Input 
                                 type="number" 
-                                className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-muted/30 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-emerald-600 dark:text-emerald-400 font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
+                                className="w-full min-w-[70px] h-8 text-xs text-right bg-background border border-input rounded shadow-sm hover:border-primary/50 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-emerald-600 dark:text-emerald-400 font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                                 value={row.bonus} 
                                 onChange={(e) => handleFieldChange(row.employeeId, "bonus", e.target.value)} 
                               />
@@ -262,7 +262,7 @@ export default function AdminPayroll() {
                             <td className="p-2 align-middle">
                               <Input 
                                 type="number" 
-                                className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-muted/30 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-emerald-600 dark:text-emerald-400 font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
+                                className="w-full min-w-[70px] h-8 text-xs text-right bg-background border border-input rounded shadow-sm hover:border-primary/50 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-emerald-600 dark:text-emerald-400 font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                                 value={row.allowances} 
                                 onChange={(e) => handleFieldChange(row.employeeId, "allowances", e.target.value)} 
                               />
@@ -270,7 +270,7 @@ export default function AdminPayroll() {
                             <td className="p-2 align-middle">
                               <Input 
                                 type="number" 
-                                className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-muted/30 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-rose-600 dark:text-rose-400 font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
+                                className="w-full min-w-[70px] h-8 text-xs text-right bg-background border border-input rounded shadow-sm hover:border-primary/50 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-rose-600 dark:text-rose-400 font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                                 value={row.absentDeduction} 
                                 onChange={(e) => handleFieldChange(row.employeeId, "absentDeduction", e.target.value)} 
                               />
@@ -278,7 +278,7 @@ export default function AdminPayroll() {
                             <td className="p-2 align-middle">
                               <Input 
                                 type="number" 
-                                className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-muted/30 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-rose-600 dark:text-rose-400 font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
+                                className="w-full min-w-[70px] h-8 text-xs text-right bg-background border border-input rounded shadow-sm hover:border-primary/50 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-rose-600 dark:text-rose-400 font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                                 value={row.taxDeduction} 
                                 onChange={(e) => handleFieldChange(row.employeeId, "taxDeduction", e.target.value)} 
                               />
@@ -286,7 +286,7 @@ export default function AdminPayroll() {
                             <td className="p-2 align-middle">
                               <Input 
                                 type="number" 
-                                className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-muted/30 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-rose-600 dark:text-rose-400 font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
+                                className="w-full min-w-[70px] h-8 text-xs text-right bg-background border border-input rounded shadow-sm hover:border-primary/50 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-rose-600 dark:text-rose-400 font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                                 value={row.otherDeductions} 
                                 onChange={(e) => handleFieldChange(row.employeeId, "otherDeductions", e.target.value)} 
                               />
