@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, Fragment } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -17,6 +17,7 @@ interface PayrollPreview {
   employeeId: string;
   employeeName: string;
   employeeIdCode: string;
+  role?: string;
   month: number;
   year: number;
   workingDays: number;
@@ -221,76 +222,85 @@ export default function AdminPayroll() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border/50">
-                    {previewData.map((row) => (
-                      <tr key={row.employeeId} className="group hover:bg-muted/20 transition-colors">
-                        <td className="p-4">
-                          <p className="font-medium text-foreground">{row.employeeName}</p>
-                          <p className="text-[11px] text-muted-foreground font-mono mt-0.5">{row.employeeIdCode}</p>
-                        </td>
-                        <td className="p-2 align-middle">
-                          <Input 
-                            type="number" 
-                            className="w-full min-w-[80px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-muted/50 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all font-medium" 
-                            value={row.basicSalary} 
-                            onChange={(e) => handleFieldChange(row.employeeId, "basicSalary", e.target.value)} 
-                          />
-                        </td>
-                        <td className="p-2 align-middle">
-                          <Input 
-                            type="number" 
-                            className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-emerald-500/10 focus:bg-background focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all text-emerald-600 dark:text-emerald-400 font-medium" 
-                            value={row.overtimePay} 
-                            onChange={(e) => handleFieldChange(row.employeeId, "overtimePay", e.target.value)} 
-                          />
-                        </td>
-                        <td className="p-2 align-middle">
-                          <Input 
-                            type="number" 
-                            className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-emerald-500/10 focus:bg-background focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all text-emerald-600 dark:text-emerald-400 font-medium" 
-                            value={row.bonus} 
-                            onChange={(e) => handleFieldChange(row.employeeId, "bonus", e.target.value)} 
-                          />
-                        </td>
-                        <td className="p-2 align-middle">
-                          <Input 
-                            type="number" 
-                            className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-emerald-500/10 focus:bg-background focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all text-emerald-600 dark:text-emerald-400 font-medium" 
-                            value={row.allowances} 
-                            onChange={(e) => handleFieldChange(row.employeeId, "allowances", e.target.value)} 
-                          />
-                        </td>
-                        <td className="p-2 align-middle">
-                          <Input 
-                            type="number" 
-                            className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-rose-500/10 focus:bg-background focus:border-rose-500 focus:ring-1 focus:ring-rose-500/30 transition-all text-rose-600 dark:text-rose-400 font-medium" 
-                            value={row.absentDeduction} 
-                            onChange={(e) => handleFieldChange(row.employeeId, "absentDeduction", e.target.value)} 
-                          />
-                        </td>
-                        <td className="p-2 align-middle">
-                          <Input 
-                            type="number" 
-                            className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-rose-500/10 focus:bg-background focus:border-rose-500 focus:ring-1 focus:ring-rose-500/30 transition-all text-rose-600 dark:text-rose-400 font-medium" 
-                            value={row.taxDeduction} 
-                            onChange={(e) => handleFieldChange(row.employeeId, "taxDeduction", e.target.value)} 
-                          />
-                        </td>
-                        <td className="p-2 align-middle">
-                          <Input 
-                            type="number" 
-                            className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-rose-500/10 focus:bg-background focus:border-rose-500 focus:ring-1 focus:ring-rose-500/30 transition-all text-rose-600 dark:text-rose-400 font-medium" 
-                            value={row.otherDeductions} 
-                            onChange={(e) => handleFieldChange(row.employeeId, "otherDeductions", e.target.value)} 
-                          />
-                        </td>
-                        <td className="p-4 text-right align-middle">
-                          <div className="flex justify-end items-center h-full">
-                            <span className="font-bold text-[15px] bg-primary/10 text-primary px-3 py-1.5 rounded-lg border border-primary/20 shadow-sm">
-                              {formatCurrency(row.netSalary.toString())}
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
+                    {Array.from(new Set(previewData.map(r => r.role || "EMPLOYEE"))).map(role => (
+                      <Fragment key={role}>
+                        <tr className="bg-muted/10">
+                          <td colSpan={9} className="px-4 py-2 text-xs font-semibold text-primary uppercase tracking-wider bg-primary/5">
+                            {role.replace(/_/g, " ")}
+                          </td>
+                        </tr>
+                        {previewData.filter(r => (r.role || "EMPLOYEE") === role).map((row) => (
+                          <tr key={row.employeeId} className="group hover:bg-muted/20 transition-colors">
+                            <td className="p-4">
+                              <p className="font-medium text-foreground">{row.employeeName}</p>
+                              <p className="text-[11px] text-muted-foreground font-mono mt-0.5">{row.employeeIdCode}</p>
+                            </td>
+                            <td className="p-2 align-middle">
+                              <Input 
+                                type="number" 
+                                className="w-full min-w-[80px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-muted/50 focus:bg-background focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all font-medium" 
+                                value={row.basicSalary} 
+                                onChange={(e) => handleFieldChange(row.employeeId, "basicSalary", e.target.value)} 
+                              />
+                            </td>
+                            <td className="p-2 align-middle">
+                              <Input 
+                                type="number" 
+                                className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-emerald-500/10 focus:bg-background focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all text-emerald-600 dark:text-emerald-400 font-medium" 
+                                value={row.overtimePay} 
+                                onChange={(e) => handleFieldChange(row.employeeId, "overtimePay", e.target.value)} 
+                              />
+                            </td>
+                            <td className="p-2 align-middle">
+                              <Input 
+                                type="number" 
+                                className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-emerald-500/10 focus:bg-background focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all text-emerald-600 dark:text-emerald-400 font-medium" 
+                                value={row.bonus} 
+                                onChange={(e) => handleFieldChange(row.employeeId, "bonus", e.target.value)} 
+                              />
+                            </td>
+                            <td className="p-2 align-middle">
+                              <Input 
+                                type="number" 
+                                className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-emerald-500/10 focus:bg-background focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all text-emerald-600 dark:text-emerald-400 font-medium" 
+                                value={row.allowances} 
+                                onChange={(e) => handleFieldChange(row.employeeId, "allowances", e.target.value)} 
+                              />
+                            </td>
+                            <td className="p-2 align-middle">
+                              <Input 
+                                type="number" 
+                                className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-rose-500/10 focus:bg-background focus:border-rose-500 focus:ring-1 focus:ring-rose-500/30 transition-all text-rose-600 dark:text-rose-400 font-medium" 
+                                value={row.absentDeduction} 
+                                onChange={(e) => handleFieldChange(row.employeeId, "absentDeduction", e.target.value)} 
+                              />
+                            </td>
+                            <td className="p-2 align-middle">
+                              <Input 
+                                type="number" 
+                                className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-rose-500/10 focus:bg-background focus:border-rose-500 focus:ring-1 focus:ring-rose-500/30 transition-all text-rose-600 dark:text-rose-400 font-medium" 
+                                value={row.taxDeduction} 
+                                onChange={(e) => handleFieldChange(row.employeeId, "taxDeduction", e.target.value)} 
+                              />
+                            </td>
+                            <td className="p-2 align-middle">
+                              <Input 
+                                type="number" 
+                                className="w-full min-w-[70px] h-8 text-xs text-right bg-transparent border-transparent shadow-none hover:bg-rose-500/10 focus:bg-background focus:border-rose-500 focus:ring-1 focus:ring-rose-500/30 transition-all text-rose-600 dark:text-rose-400 font-medium" 
+                                value={row.otherDeductions} 
+                                onChange={(e) => handleFieldChange(row.employeeId, "otherDeductions", e.target.value)} 
+                              />
+                            </td>
+                            <td className="p-4 text-right align-middle">
+                              <div className="flex justify-end items-center h-full">
+                                <span className="font-bold text-[15px] bg-primary/10 text-primary px-3 py-1.5 rounded-lg border border-primary/20 shadow-sm">
+                                  {formatCurrency(row.netSalary.toString())}
+                                </span>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </Fragment>
                     ))}
                   </tbody>
                 </table>

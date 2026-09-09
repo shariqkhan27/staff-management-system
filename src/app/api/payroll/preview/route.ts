@@ -25,11 +25,12 @@ export async function GET(req: NextRequest) {
         status: "ACTIVE",
         OR: [
           { user: null },
-          { user: { role: { notIn: ["OWNER", "FINANCE_MANAGER"] } } }
+          { user: { role: { notIn: ["OWNER"] } } }
         ]
       },
       include: {
         department: true,
+        user: true,
       }
     });
 
@@ -97,6 +98,7 @@ export async function GET(req: NextRequest) {
         employeeName: emp.name,
         employeeIdCode: emp.employeeId,
         departmentName: emp.department?.name || "-",
+        role: emp.user?.role || "EMPLOYEE",
         month,
         year,
         workingDays: daysInMonth,
