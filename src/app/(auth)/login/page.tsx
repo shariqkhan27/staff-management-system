@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Building2, Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 import { useGlobalSettings } from "@/components/global-settings-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -46,8 +47,12 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="w-full max-w-md px-4">
-      {/* Background effects */}
+    <>
+      <div className="absolute top-4 right-4 z-50">
+        <ThemeToggle />
+      </div>
+      <div className="w-full max-w-md px-4">
+        {/* Background effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
@@ -157,5 +162,6 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+    </>
   );
 }
