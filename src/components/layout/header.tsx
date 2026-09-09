@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Bell, Search, Menu, Check } from "lucide-react";
 import { Avatar } from "@/components/ui/avatar";
 import { format } from "date-fns";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 interface HeaderProps {
   userName: string;
@@ -131,6 +132,9 @@ export function Header({ userName, userRole, onMobileMenuToggle }: HeaderProps) 
             className="bg-transparent border-none outline-none text-sm text-foreground placeholder:text-muted-foreground w-40"
           />
         </div>
+
+        {/* Theme Toggle */}
+        <ThemeToggle />
 
         {/* Notifications Bell */}
         {userRole === "OWNER" && (

@@ -42,12 +42,14 @@ export default function AdminPayroll() {
   const [month, setMonth] = useState<number | "">(new Date().getMonth() + 1);
   const [year, setYear] = useState<number | "">(new Date().getFullYear());
   const [daysInMonth, setDaysInMonth] = useState<number | "">(30);
-  const [overtimeRate, setOvertimeRate] = useState<number | "">(settings.defaultOvertimeRate || 0);
+  const [overtimeRate, setOvertimeRate] = useState<number | "">(
+    settings.defaultOvertimeRate ? parseFloat(settings.defaultOvertimeRate) : 0
+  );
   
   // Sync overtime rate when settings load
   useEffect(() => {
     if (settings.defaultOvertimeRate) {
-      setOvertimeRate(settings.defaultOvertimeRate);
+      setOvertimeRate(parseFloat(settings.defaultOvertimeRate));
     }
   }, [settings.defaultOvertimeRate]);
   

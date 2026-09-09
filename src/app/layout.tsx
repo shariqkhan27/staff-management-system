@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { GlobalSettingsProvider } from "@/components/global-settings-provider";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,12 +27,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <GlobalSettingsProvider>
-          {children}
-          <Toaster />
-        </GlobalSettingsProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <GlobalSettingsProvider>
+            {children}
+            <Toaster />
+          </GlobalSettingsProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
