@@ -30,12 +30,12 @@ async function main() {
   const ownerPasswordHash = await bcrypt.hash("Admin@123", 12);
   const ownerUser = await prisma.user.create({
     data: {
-      email: "admin@elegence.com",
+      email: "admin@elegance.com",
       passwordHash: ownerPasswordHash,
       role: UserRole.OWNER,
     },
   });
-  console.log("✅ Owner user created: admin@elegence.com / Admin@123");
+  console.log("✅ Owner user created: admin@elegance.com / Admin@123");
 
   // Create Departments
   const departments = await Promise.all([
@@ -53,7 +53,7 @@ async function main() {
       employeeId: "EMP-001",
       name: "Admin Owner",
       phone: "03001234567",
-      email: "admin@elegence.com",
+      email: "admin@elegance.com",
       joiningDate: new Date("2020-01-01"),
       designation: "Owner / CEO",
       departmentId: departments[0].id,
@@ -74,7 +74,7 @@ async function main() {
   const emp2Password = await bcrypt.hash("employee123", 12);
   const emp2User = await prisma.user.create({
     data: {
-      email: "ahmed@elegence.com",
+      email: "ahmed@elegance.com",
       passwordHash: emp2Password,
       role: UserRole.EMPLOYEE,
     },
@@ -86,7 +86,7 @@ async function main() {
       name: "Ahmed Hassan",
       cnic: "42201-1234567-1",
       phone: "03012345678",
-      email: "ahmed@elegence.com",
+      email: "ahmed@elegance.com",
       address: "House 12, Block C, Gulshan-e-Iqbal, Karachi",
       dateOfBirth: new Date("1995-03-15"),
       joiningDate: new Date("2023-06-01"),
@@ -109,7 +109,7 @@ async function main() {
       name: "Fatima Ali",
       cnic: "42301-9876543-2",
       phone: "03123456789",
-      email: "fatima@elegence.com",
+      email: "fatima@elegance.com",
       address: "Flat 4-A, Navy Heights, Clifton, Karachi",
       dateOfBirth: new Date("1992-07-22"),
       joiningDate: new Date("2022-01-15"),
@@ -186,8 +186,8 @@ async function main() {
 
   console.log("\n🎉 Seed completed successfully!");
   console.log("\n📋 Login Credentials:");
-  console.log("   Owner:    admin@elegence.com / Admin@123");
-  console.log("   Employee: ahmed@elegence.com / employee123");
+  console.log("   Owner:    admin@elegance.com / Admin@123");
+  console.log("   Employee: ahmed@elegance.com / employee123");
 }
 
 main()

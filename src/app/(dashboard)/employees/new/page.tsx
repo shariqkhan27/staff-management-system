@@ -406,7 +406,7 @@ export default function NewEmployeePage() {
                     type="email"
                     value={form.accountEmail}
                     onChange={handleChange}
-                    placeholder="ahmed@elegence.com"
+                    placeholder="ahmed@elegance.com"
                     className={errors.accountEmail ? "border-destructive" : ""}
                   />
                   {errors.accountEmail && (

@@ -8,10 +8,10 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Elegence Spaces — Staff Management",
+  title: "Elegance Spaces — Staff Management",
   description:
-    "Complete HR & Staff Management System for Elegence Spaces. Manage employees, attendance, payroll, and finances.",
-  keywords: "HR, staff management, payroll, attendance, Elegence Spaces",
+    "Complete HR & Staff Management System for Elegance Spaces. Manage employees, attendance, payroll, and finances.",
+  keywords: "HR, staff management, payroll, attendance, Elegance Spaces",
 };
 
 export const viewport = {

@@ -35,7 +35,7 @@ export default function LeavesReport() {
         <div className="bg-white text-black max-w-[210mm] mx-auto min-h-[297mm] p-12 shadow-lg border printable-area">
           <div className="flex justify-between items-start border-b-2 border-black pb-6 mb-8">
             <div>
-              <h1 className="text-3xl font-bold tracking-tighter uppercase">Elegence Spaces</h1>
+              <h1 className="text-3xl font-bold tracking-tighter uppercase">Elegance Spaces</h1>
               <p className="text-sm text-gray-500 mt-1">Real Estate & Construction</p>
             </div>
             <div className="text-right">
@@ -72,7 +72,7 @@ export default function LeavesReport() {
 
           <div className="mt-20 pt-8 border-t border-gray-300 text-center text-sm text-gray-500">
             <p>This is a computer-generated document. No signature is required.</p>
-            <p className="mt-1">© {new Date().getFullYear()} Elegence Spaces. All rights reserved.</p>
+            <p className="mt-1">© {new Date().getFullYear()} Elegance Spaces. All rights reserved.</p>
           </div>
         </div>
       )}
