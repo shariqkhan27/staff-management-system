@@ -18,51 +18,51 @@ export default function FinancePage() {
         <p className="text-muted-foreground">Manage company income, expenses, budgets, and vendors.</p>
       </div>
 
-      <div className="flex gap-1 bg-muted p-1 rounded-lg overflow-x-auto max-w-full w-full sm:w-max hide-scrollbar">
+      <div className="flex overflow-x-auto border-b border-border hide-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
         <button
           onClick={() => setActiveTab("overview")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${
-            activeTab === "overview" ? "bg-background shadow-sm" : "hover:bg-background/50 text-muted-foreground"
+          className={`pb-3 pt-2 px-1 mr-6 text-sm font-medium transition-colors whitespace-nowrap shrink-0 border-b-2 ${
+            activeTab === "overview" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
           }`}
         >
           Overview
         </button>
         <button
           onClick={() => setActiveTab("income")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${
-            activeTab === "income" ? "bg-background shadow-sm" : "hover:bg-background/50 text-muted-foreground"
+          className={`pb-3 pt-2 px-1 mr-6 text-sm font-medium transition-colors whitespace-nowrap shrink-0 border-b-2 ${
+            activeTab === "income" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
           }`}
         >
           Income
         </button>
         <button
           onClick={() => setActiveTab("expenses")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${
-            activeTab === "expenses" ? "bg-background shadow-sm" : "hover:bg-background/50 text-muted-foreground"
+          className={`pb-3 pt-2 px-1 mr-6 text-sm font-medium transition-colors whitespace-nowrap shrink-0 border-b-2 ${
+            activeTab === "expenses" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
           }`}
         >
           Expenses
         </button>
         <button
           onClick={() => setActiveTab("petty-cash")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${
-            activeTab === "petty-cash" ? "bg-background shadow-sm" : "hover:bg-background/50 text-muted-foreground"
+          className={`pb-3 pt-2 px-1 mr-6 text-sm font-medium transition-colors whitespace-nowrap shrink-0 border-b-2 ${
+            activeTab === "petty-cash" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
           }`}
         >
           Petty Cash
         </button>
         <button
           onClick={() => setActiveTab("vendors")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${
-            activeTab === "vendors" ? "bg-background shadow-sm" : "hover:bg-background/50 text-muted-foreground"
+          className={`pb-3 pt-2 px-1 mr-6 text-sm font-medium transition-colors whitespace-nowrap shrink-0 border-b-2 ${
+            activeTab === "vendors" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
           }`}
         >
           Vendors
         </button>
         <button
           onClick={() => setActiveTab("budgets")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${
-            activeTab === "budgets" ? "bg-background shadow-sm" : "hover:bg-background/50 text-muted-foreground"
+          className={`pb-3 pt-2 px-1 mr-6 text-sm font-medium transition-colors whitespace-nowrap shrink-0 border-b-2 ${
+            activeTab === "budgets" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
           }`}
         >
           Budgets
