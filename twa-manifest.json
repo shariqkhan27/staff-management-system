@@ -1,0 +1,46 @@
+{
+  "packageId": "com.elegancespaces.hr",
+  "host": "elegancespaces.online",
+  "name": "Elegance Spaces Staff Management",
+  "launcherName": "Elegance HR",
+  "display": "standalone",
+  "themeColor": "#b58860",
+  "themeColorDark": "#09090b",
+  "navigationColor": "#ffffff",
+  "navigationColorDark": "#09090b",
+  "navigationDividerColor": "#e6dfd8",
+  "navigationDividerColorDark": "#27272a",
+  "backgroundColor": "#ffffff",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "https://elegancespaces.online/icons/icon-512x512.png",
+  "maskableIconUrl": "https://elegancespaces.online/icons/icon-maskable-512x512.png",
+  "shortcuts": [
+    {
+      "name": "Attendance",
+      "short_name": "Attendance",
+      "url": "/attendance",
+      "icons": []
+    },
+    {
+      "name": "Employees",
+      "short_name": "Employees",
+      "url": "/employees",
+      "icons": []
+    }
+  ],
+  "signingKey": {
+    "path": "elegance-keystore.jks",
+    "alias": "elegance-spaces"
+  },
+  "appVersionCode": 1,
+  "appVersionName": "1.0.0",
+  "splashScreenFadeOutDuration": 300,
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "orientation": "portrait",
+  "fallbackType": "customtabs",
+  "features": {},
+  "additionalTrustedOrigins": [],
+  "retainedBundles": []
+}

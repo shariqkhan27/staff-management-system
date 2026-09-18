@@ -12,6 +12,19 @@ export const metadata: Metadata = {
   description:
     "Complete HR & Staff Management System for Elegance Spaces. Manage employees, attendance, payroll, and finances.",
   keywords: "HR, staff management, payroll, attendance, Elegance Spaces",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Elegance HR",
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "application-name": "Elegance Spaces Staff Management",
+    "apple-mobile-web-app-title": "Elegance HR",
+    "msapplication-TileColor": "#b58860",
+  },
 };
 
 export const viewport = {
@@ -19,6 +32,7 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
   viewportFit: "cover",
+  themeColor: "#b58860",
 };
 
 export default function RootLayout({
@@ -28,6 +42,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/icons/icon-512x512.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/icons/icon-512x512.png" />
+      </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <GlobalSettingsProvider>
@@ -35,6 +53,23 @@ export default function RootLayout({
             <Toaster />
           </GlobalSettingsProvider>
         </ThemeProvider>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                      console.log('SW registered: ', registration.scope);
+                    })
+                    .catch(function(error) {
+                      console.log('SW registration failed: ', error);
+                    });
+                });
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );
