@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useUser } from "@/lib/user-context";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, cn } from "@/lib/utils";
 import {
   Users,
   UserCheck,
@@ -283,30 +283,22 @@ function EmployeeDashboard({ userName }: { userName: string }) {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild>
-              <Link href="/my-profile">
-                <User className="h-4 w-4 text-blue-400" />
-                <span className="text-sm">My Profile</span>
-              </Link>
-            </Button>
-            <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild>
-              <Link href="/my-attendance">
-                <ClipboardList className="h-4 w-4 text-green-400" />
-                <span className="text-sm">My Attendance</span>
-              </Link>
-            </Button>
-            <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild>
-              <Link href="/my-leaves">
-                <CalendarOff className="h-4 w-4 text-yellow-400" />
-                <span className="text-sm">My Leaves</span>
-              </Link>
-            </Button>
-            <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild>
-              <Link href="/my-payslips">
-                <FileText className="h-4 w-4 text-purple-400" />
-                <span className="text-sm">My Payslips</span>
-              </Link>
-            </Button>
+            <Link href="/my-profile" className={cn(buttonVariants({ variant: "outline" }), "w-full justify-start gap-2 h-12")}>
+              <User className="h-4 w-4 text-blue-400" />
+              <span className="text-sm">My Profile</span>
+            </Link>
+            <Link href="/my-attendance" className={cn(buttonVariants({ variant: "outline" }), "w-full justify-start gap-2 h-12")}>
+              <ClipboardList className="h-4 w-4 text-green-400" />
+              <span className="text-sm">My Attendance</span>
+            </Link>
+            <Link href="/my-leaves" className={cn(buttonVariants({ variant: "outline" }), "w-full justify-start gap-2 h-12")}>
+              <CalendarOff className="h-4 w-4 text-yellow-400" />
+              <span className="text-sm">My Leaves</span>
+            </Link>
+            <Link href="/my-payslips" className={cn(buttonVariants({ variant: "outline" }), "w-full justify-start gap-2 h-12")}>
+              <FileText className="h-4 w-4 text-purple-400" />
+              <span className="text-sm">My Payslips</span>
+            </Link>
           </div>
         </CardContent>
       </Card>
@@ -456,17 +448,17 @@ function AdminDashboard({ userRole, userName }: { userRole: string; userName: st
             <div className="grid grid-cols-2 gap-3">
               {isOwner ? (
                 <>
-                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/employees/new"><Users className="h-4 w-4 text-blue-400" /><span className="text-sm">Add Employee</span></Link></Button>
-                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/attendance"><ClipboardList className="h-4 w-4 text-green-400" /><span className="text-sm">Mark Attendance</span></Link></Button>
-                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/payroll"><Wallet className="h-4 w-4 text-purple-400" /><span className="text-sm">Process Payroll</span></Link></Button>
-                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/reports"><TrendingUp className="h-4 w-4 text-primary" /><span className="text-sm">View Reports</span></Link></Button>
+                  <Link href="/employees/new" className={cn(buttonVariants({ variant: "outline" }), "w-full justify-start gap-2 h-12")}><Users className="h-4 w-4 text-blue-400" /><span className="text-sm">Add Employee</span></Link>
+                  <Link href="/attendance" className={cn(buttonVariants({ variant: "outline" }), "w-full justify-start gap-2 h-12")}><ClipboardList className="h-4 w-4 text-green-400" /><span className="text-sm">Mark Attendance</span></Link>
+                  <Link href="/payroll" className={cn(buttonVariants({ variant: "outline" }), "w-full justify-start gap-2 h-12")}><Wallet className="h-4 w-4 text-purple-400" /><span className="text-sm">Process Payroll</span></Link>
+                  <Link href="/reports" className={cn(buttonVariants({ variant: "outline" }), "w-full justify-start gap-2 h-12")}><TrendingUp className="h-4 w-4 text-primary" /><span className="text-sm">View Reports</span></Link>
                 </>
               ) : (
                 <>
-                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/attendance"><ClipboardList className="h-4 w-4 text-green-400" /><span className="text-sm">Mark Attendance</span></Link></Button>
-                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/leaves"><CalendarOff className="h-4 w-4 text-yellow-400" /><span className="text-sm">Leave Requests</span></Link></Button>
-                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/employees"><Users className="h-4 w-4 text-blue-400" /><span className="text-sm">Employees</span></Link></Button>
-                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/departments"><Building2 className="h-4 w-4 text-purple-400" /><span className="text-sm">Departments</span></Link></Button>
+                  <Link href="/attendance" className={cn(buttonVariants({ variant: "outline" }), "w-full justify-start gap-2 h-12")}><ClipboardList className="h-4 w-4 text-green-400" /><span className="text-sm">Mark Attendance</span></Link>
+                  <Link href="/leaves" className={cn(buttonVariants({ variant: "outline" }), "w-full justify-start gap-2 h-12")}><CalendarOff className="h-4 w-4 text-yellow-400" /><span className="text-sm">Leave Requests</span></Link>
+                  <Link href="/employees" className={cn(buttonVariants({ variant: "outline" }), "w-full justify-start gap-2 h-12")}><Users className="h-4 w-4 text-blue-400" /><span className="text-sm">Employees</span></Link>
+                  <Link href="/departments" className={cn(buttonVariants({ variant: "outline" }), "w-full justify-start gap-2 h-12")}><Building2 className="h-4 w-4 text-purple-400" /><span className="text-sm">Departments</span></Link>
                 </>
               )}
             </div>
