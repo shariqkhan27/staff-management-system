@@ -282,30 +282,30 @@ function EmployeeDashboard({ userName }: { userName: string }) {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <Link href="/my-profile">
-              <Button variant="outline" className="w-full justify-start gap-2 h-12">
+            <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild>
+              <Link href="/my-profile">
                 <User className="h-4 w-4 text-blue-400" />
                 <span className="text-sm">My Profile</span>
-              </Button>
-            </Link>
-            <Link href="/my-attendance">
-              <Button variant="outline" className="w-full justify-start gap-2 h-12">
+              </Link>
+            </Button>
+            <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild>
+              <Link href="/my-attendance">
                 <ClipboardList className="h-4 w-4 text-green-400" />
                 <span className="text-sm">My Attendance</span>
-              </Button>
-            </Link>
-            <Link href="/my-leaves">
-              <Button variant="outline" className="w-full justify-start gap-2 h-12">
+              </Link>
+            </Button>
+            <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild>
+              <Link href="/my-leaves">
                 <CalendarOff className="h-4 w-4 text-yellow-400" />
                 <span className="text-sm">My Leaves</span>
-              </Button>
-            </Link>
-            <Link href="/my-payslips">
-              <Button variant="outline" className="w-full justify-start gap-2 h-12">
+              </Link>
+            </Button>
+            <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild>
+              <Link href="/my-payslips">
                 <FileText className="h-4 w-4 text-purple-400" />
                 <span className="text-sm">My Payslips</span>
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </CardContent>
       </Card>
@@ -413,17 +413,17 @@ function AdminDashboard({ userRole, userName }: { userRole: string; userName: st
             <div className="grid grid-cols-2 gap-3">
               {isOwner ? (
                 <>
-                  <Link href="/employees/new"><Button variant="outline" className="w-full justify-start gap-2 h-12"><Users className="h-4 w-4 text-blue-400" /><span className="text-sm">Add Employee</span></Button></Link>
-                  <Link href="/attendance"><Button variant="outline" className="w-full justify-start gap-2 h-12"><ClipboardList className="h-4 w-4 text-green-400" /><span className="text-sm">Mark Attendance</span></Button></Link>
-                  <Link href="/payroll"><Button variant="outline" className="w-full justify-start gap-2 h-12"><Wallet className="h-4 w-4 text-purple-400" /><span className="text-sm">Process Payroll</span></Button></Link>
-                  <Link href="/reports"><Button variant="outline" className="w-full justify-start gap-2 h-12"><TrendingUp className="h-4 w-4 text-primary" /><span className="text-sm">View Reports</span></Button></Link>
+                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/employees/new"><Users className="h-4 w-4 text-blue-400" /><span className="text-sm">Add Employee</span></Link></Button>
+                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/attendance"><ClipboardList className="h-4 w-4 text-green-400" /><span className="text-sm">Mark Attendance</span></Link></Button>
+                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/payroll"><Wallet className="h-4 w-4 text-purple-400" /><span className="text-sm">Process Payroll</span></Link></Button>
+                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/reports"><TrendingUp className="h-4 w-4 text-primary" /><span className="text-sm">View Reports</span></Link></Button>
                 </>
               ) : (
                 <>
-                  <Link href="/attendance"><Button variant="outline" className="w-full justify-start gap-2 h-12"><ClipboardList className="h-4 w-4 text-green-400" /><span className="text-sm">Mark Attendance</span></Button></Link>
-                  <Link href="/leaves"><Button variant="outline" className="w-full justify-start gap-2 h-12"><CalendarOff className="h-4 w-4 text-yellow-400" /><span className="text-sm">Leave Requests</span></Button></Link>
-                  <Link href="/employees"><Button variant="outline" className="w-full justify-start gap-2 h-12"><Users className="h-4 w-4 text-blue-400" /><span className="text-sm">Employees</span></Button></Link>
-                  <Link href="/departments"><Button variant="outline" className="w-full justify-start gap-2 h-12"><Building2 className="h-4 w-4 text-purple-400" /><span className="text-sm">Departments</span></Button></Link>
+                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/attendance"><ClipboardList className="h-4 w-4 text-green-400" /><span className="text-sm">Mark Attendance</span></Link></Button>
+                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/leaves"><CalendarOff className="h-4 w-4 text-yellow-400" /><span className="text-sm">Leave Requests</span></Link></Button>
+                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/employees"><Users className="h-4 w-4 text-blue-400" /><span className="text-sm">Employees</span></Link></Button>
+                  <Button variant="outline" className="w-full justify-start gap-2 h-12" asChild><Link href="/departments"><Building2 className="h-4 w-4 text-purple-400" /><span className="text-sm">Departments</span></Link></Button>
                 </>
               )}
             </div>
