@@ -144,8 +144,8 @@ function EmployeeDashboard({ userName }: { userName: string }) {
   return (
     <div className="space-y-6 fade-in">
       {/* Welcome */}
-      <div className="glass-card rounded-xl p-4 sm:p-6">
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+      <div className="glass-card rounded-xl py-3 px-4 sm:py-4 sm:px-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
           <div>
             <h2 className="text-lg sm:text-xl font-semibold break-words">Welcome back, {userName}! 👋</h2>
             <p className="text-sm sm:text-base text-muted-foreground mt-1">
@@ -353,7 +353,7 @@ function AdminDashboard({ userRole, userName }: { userRole: string; userName: st
 
   return (
     <div className="space-y-6 fade-in">
-      <div className="glass-card rounded-xl p-4 sm:p-6">
+      <div className="glass-card rounded-xl py-3 px-4 sm:py-4 sm:px-6">
         <h2 className="text-lg sm:text-xl font-semibold break-words">Welcome back, {userName}! 👋</h2>
         <p className="text-sm sm:text-base text-muted-foreground mt-1">
           {isOwner ? "Here's the full overview of Elegance Spaces today." : "Here's today's attendance and leave overview for your team."}
