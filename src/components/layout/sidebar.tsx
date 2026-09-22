@@ -166,9 +166,9 @@ export function Sidebar({
         </div>
         {/* On mobile: always show. On desktop: show/hide based on collapsed */}
         <div className={cn("overflow-hidden", collapsed && "lg:hidden")}>
-          <h1 className="text-sm font-bold text-foreground truncate">
+          <span className="text-sm font-bold text-foreground truncate block">
             {line1}
-          </h1>
+          </span>
           <p className="text-[10px] text-muted-foreground truncate">
             {line2}
           </p>
