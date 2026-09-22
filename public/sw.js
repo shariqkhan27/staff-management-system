@@ -7,6 +7,7 @@ const STATIC_ASSETS = [
   '/manifest.json',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
+  '/icons/icon-maskable-192x192.png',
   '/icons/icon-maskable-512x512.png',
 ];
 
