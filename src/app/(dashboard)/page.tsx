@@ -385,10 +385,50 @@ function AdminDashboard({ userRole, userName }: { userRole: string; userName: st
 
       {isOwner && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="bg-card/50"><CardContent className="p-5"><div className="flex items-center gap-3"><CalendarCheck className="h-5 w-5 text-green-400" /><div><p className="text-xs text-muted-foreground">Present Today</p><p className="text-xl font-semibold mt-0.5">{stats?.todayPresent ?? 0}</p></div></div></CardContent></Card>
-          <Card className="bg-card/50"><CardContent className="p-5"><div className="flex items-center gap-3"><CalendarOff className="h-5 w-5 text-red-400" /><div><p className="text-xs text-muted-foreground">Absent Today</p><p className="text-xl font-semibold mt-0.5">{stats?.todayAbsent ?? 0}</p></div></div></CardContent></Card>
-          <Card className="bg-card/50"><CardContent className="p-5"><div className="flex items-center gap-3"><Clock className="h-5 w-5 text-yellow-400" /><div><p className="text-xs text-muted-foreground">Pending Leave Requests</p><p className="text-xl font-semibold mt-0.5">{stats?.pendingLeaves ?? 0}</p></div></div></CardContent></Card>
-          <Card className="bg-card/50"><CardContent className="p-5"><div className="flex items-center gap-3"><TrendingUp className="h-5 w-5 text-primary" /><div><p className="text-xs text-muted-foreground">Monthly Payroll</p><p className="text-xl font-semibold mt-0.5">{formatCurrency(stats?.monthlyPayroll ?? 0)}</p></div></div></CardContent></Card>
+          <div className="stat-card rounded-xl p-5 border-green-500/20">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">Present Today</p>
+                <p className="text-3xl font-bold mt-1">{stats?.todayPresent ?? 0}</p>
+              </div>
+              <div className="h-12 w-12 rounded-xl bg-green-500/10 flex items-center justify-center">
+                <CalendarCheck className="h-6 w-6 text-green-400" />
+              </div>
+            </div>
+          </div>
+          <div className="stat-card rounded-xl p-5 border-red-500/20">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">Absent Today</p>
+                <p className="text-3xl font-bold mt-1">{stats?.todayAbsent ?? 0}</p>
+              </div>
+              <div className="h-12 w-12 rounded-xl bg-red-500/10 flex items-center justify-center">
+                <CalendarOff className="h-6 w-6 text-red-400" />
+              </div>
+            </div>
+          </div>
+          <div className="stat-card rounded-xl p-5 border-yellow-500/20">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">Pending Leave Requests</p>
+                <p className="text-3xl font-bold mt-1">{stats?.pendingLeaves ?? 0}</p>
+              </div>
+              <div className="h-12 w-12 rounded-xl bg-yellow-500/10 flex items-center justify-center">
+                <Clock className="h-6 w-6 text-yellow-400" />
+              </div>
+            </div>
+          </div>
+          <div className="stat-card rounded-xl p-5 border-primary/20">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">Monthly Payroll</p>
+                <p className="text-xl sm:text-2xl font-bold mt-1">{formatCurrency(stats?.monthlyPayroll ?? 0)}</p>
+              </div>
+              <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <TrendingUp className="h-6 w-6 text-primary" />
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
