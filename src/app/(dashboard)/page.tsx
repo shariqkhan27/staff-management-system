@@ -25,6 +25,7 @@ import {
   Briefcase,
   FileText,
   Calendar,
+  CheckCircle,
 } from "lucide-react";
 
 // ─────────────────────────────────────
@@ -442,7 +443,9 @@ function AdminDashboard({ userRole, userName }: { userRole: string; userName: st
                 <Badge variant="warning">Pending</Badge>
               </div>
             ) : (
-              <p className="text-sm text-muted-foreground text-center py-4">No pending actions. All caught up! ✅</p>
+              <p className="text-sm text-muted-foreground flex items-center justify-center gap-2 py-4">
+                No pending actions. All caught up! <CheckCircle className="h-4 w-4 text-green-500" />
+              </p>
             )}
           </CardContent>
         </Card>
