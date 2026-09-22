@@ -427,7 +427,7 @@ function AdminDashboard({ userRole, userName }: { userRole: string; userName: st
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
-          <CardHeader><CardTitle className="text-base flex items-center gap-2"><AlertCircle className="h-4 w-4 text-yellow-400" />Pending Actions</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-base flex items-center gap-2"><ClipboardList className="h-4 w-4 text-primary" />Pending Actions</CardTitle></CardHeader>
           <CardContent>
             {(stats?.pendingLeaves ?? 0) > 0 ? (
               <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/50">
